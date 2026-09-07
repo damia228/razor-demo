@@ -1,0 +1,105 @@
+{
+  "brand": {
+    "name": "DENTA",
+    "tagline": "Спокойно. Точно. По времени.",
+    "type": "DENTAL CLINIC",
+    "city": "ALMATY",
+    "country": "Казахстан",
+    "description": "Стоматология DENTA — онлайн-запись к врачу.",
+    "accent": "#87b7d8",
+    "accent_soft": "#bdd8eb",
+    "rating": "4.9"
+  },
+  "content": {
+    "hero_title": "Стоматология без ожидания.",
+    "hero_lead": "Выберите процедуру, врача и свободное время.",
+    "services_title": "Лечение с понятной записью.",
+    "services_intro": "До записи видны стоимость и продолжительность приёма.",
+    "team_title": "Выберите своего врача.",
+    "team_intro": "Выберите врача и подходящее время приёма.",
+    "booking_title": "Запишитесь на визит.",
+    "booking_intro": "После бронирования ты получишь код записи. С ним можно проверить статус или отменить визит самостоятельно.",
+    "experience_title": "Меньше ожидания. Больше ясности.",
+    "experience_intro": "Система не предлагает занятые интервалы и учитывает длительность услуги.",
+    "footer_text": "Онлайн-запись в стоматологию DENTA."
+  },
+  "terminology": {
+    "staff_singular": "врач",
+    "staff_plural": "врачи",
+    "staff_plural_genitive": "врачей",
+    "team_section": "СПЕЦИАЛИСТЫ",
+    "booking_action": "Записаться",
+    "visit": "приём"
+  },
+  "schedule": {
+    "open": "09:00",
+    "close": "20:00",
+    "slot_minutes": 30,
+    "booking_window_days": 60,
+    "min_notice_minutes": 30,
+    "timezone": "Asia/Almaty",
+    "days_label": "Ежедневно"
+  },
+  "commerce": {
+    "currency": "₸",
+    "phone_placeholder": "+7 777 000 00 00",
+    "reference_prefix": "DN"
+  },
+  "services": [
+    {
+      "name": "Осмотр и консультация",
+      "price": 5000,
+      "duration": 30,
+      "description": "Осмотр, диагностика и план лечения."
+    },
+    {
+      "name": "Профессиональная чистка",
+      "price": 18000,
+      "duration": 60,
+      "description": "Комплексная гигиена полости рта."
+    },
+    {
+      "name": "Лечение кариеса",
+      "price": 25000,
+      "duration": 90,
+      "description": "Лечение по предварительной диагностике."
+    }
+  ],
+  "staff": [
+    {
+      "name": "Д-р Ахметов",
+      "rating": "5.0",
+      "experience": "11 лет",
+      "speciality": "Терапия • Эстетика",
+      "image": "https://images.unsplash.com/photo-1622288432450-277d0fef5ed6?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "name": "Д-р Ким",
+      "rating": "4.9",
+      "experience": "9 лет",
+      "speciality": "Гигиена • Профилактика",
+      "image": "https://images.unsplash.com/photo-1582893561942-d61adcb2e534?auto=format&fit=crop&w=900&q=80"
+    }
+  ],
+  "reviews": [
+    {
+      "rating": "★★★★★",
+      "text": "Записалась на удобное время без звонка в регистратуру.",
+      "author": "Пациент, демо-отзыв"
+    },
+    {
+      "rating": "★★★★★",
+      "text": "Понравилось, что сразу видно длительность и стоимость.",
+      "author": "Пациент, демо-отзыв"
+    },
+    {
+      "rating": "★★★★★",
+      "text": "Статус записи проверяется по коду — удобно.",
+      "author": "Пациент, демо-отзыв"
+    }
+  ],
+  "visuals": {
+    "hero_image": "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=1000&q=85",
+    "admin_image": "https://images.unsplash.com/photo-1621607512214-68297480165e?auto=format&fit=crop&w=1400&q=80"
+  }
+}

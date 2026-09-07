@@ -1,0 +1,112 @@
+{
+  "brand": {
+    "name": "LUMI",
+    "tagline": "Красота без лишней суеты.",
+    "type": "BEAUTY SALON",
+    "city": "ALMATY",
+    "country": "Казахстан",
+    "description": "Салон красоты LUMI — онлайн-запись к специалисту.",
+    "accent": "#d9b8c4",
+    "accent_soft": "#ead5dd",
+    "rating": "4.9"
+  },
+  "content": {
+    "hero_title": "Твой образ. Твоё время.",
+    "hero_lead": "Выбери услугу, специалиста и свободное окно — без звонков и переписок.",
+    "services_title": "Красиво и понятно.",
+    "services_intro": "Стоимость и длительность видны до записи.",
+    "team_title": "Специалист, которому доверяешь.",
+    "team_intro": "Маникюр, волосы и уход — одна удобная запись.",
+    "booking_title": "Выбери удобное окно.",
+    "booking_intro": "После бронирования ты получишь код записи. С ним можно проверить статус или отменить визит самостоятельно.",
+    "experience_title": "Без ожидания и переписок.",
+    "experience_intro": "Система показывает только свободное время выбранного специалиста.",
+    "footer_text": "Онлайн-запись в салон красоты LUMI."
+  },
+  "terminology": {
+    "staff_singular": "специалист",
+    "staff_plural": "специалисты",
+    "staff_plural_genitive": "специалистов",
+    "team_section": "КОМАНДА",
+    "booking_action": "Записаться",
+    "visit": "визит"
+  },
+  "schedule": {
+    "open": "10:00",
+    "close": "21:00",
+    "slot_minutes": 30,
+    "booking_window_days": 60,
+    "min_notice_minutes": 30,
+    "timezone": "Asia/Almaty",
+    "days_label": "Ежедневно"
+  },
+  "commerce": {
+    "currency": "₸",
+    "phone_placeholder": "+7 777 000 00 00",
+    "reference_prefix": "LU"
+  },
+  "services": [
+    {
+      "name": "Маникюр",
+      "price": 8000,
+      "duration": 90,
+      "description": "Маникюр и однотонное покрытие."
+    },
+    {
+      "name": "Стрижка",
+      "price": 7000,
+      "duration": 60,
+      "description": "Консультация, стрижка и укладка."
+    },
+    {
+      "name": "Укладка",
+      "price": 5000,
+      "duration": 45,
+      "description": "Укладка под образ и событие."
+    }
+  ],
+  "staff": [
+    {
+      "name": "Алина",
+      "rating": "4.9",
+      "experience": "6 лет",
+      "speciality": "Маникюр • Nail art",
+      "image": "https://images.unsplash.com/photo-1622288432450-277d0fef5ed6?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "name": "София",
+      "rating": "5.0",
+      "experience": "8 лет",
+      "speciality": "Стрижки • Styling",
+      "image": "https://images.unsplash.com/photo-1582893561942-d61adcb2e534?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "name": "Диана",
+      "rating": "4.9",
+      "experience": "5 лет",
+      "speciality": "Укладки • Color",
+      "image": "https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=900&q=80"
+    }
+  ],
+  "reviews": [
+    {
+      "rating": "★★★★★",
+      "text": "Записалась за минуту и сразу увидела свободное время.",
+      "author": "Айгерим, демо-отзыв"
+    },
+    {
+      "rating": "★★★★★",
+      "text": "Очень удобно, что цена известна заранее.",
+      "author": "Мадина, демо-отзыв"
+    },
+    {
+      "rating": "★★★★★",
+      "text": "Никаких переписок — выбрала специалиста и время.",
+      "author": "Алина, демо-отзыв"
+    }
+  ],
+  "visuals": {
+    "hero_image": "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=1000&q=85",
+    "admin_image": "https://images.unsplash.com/photo-1621607512214-68297480165e?auto=format&fit=crop&w=1400&q=80"
+  }
+}

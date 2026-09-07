@@ -13,3 +13,5 @@ services:
         generateValue: true
       - key: ADMIN_PASSWORD
         sync: false
+      - key: SETTINGS_DATABASE_URL
+        sync: false

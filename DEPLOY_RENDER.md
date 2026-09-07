@@ -1,98 +1,51 @@
-# RAZOR PRO — деплой на Render Free
+# RAZOR Engine V2.1 — Render deployment
 
-## Что уже подготовлено
+## Что изменилось в V2.1
 
-- Flask запускается через Gunicorn.
-- Есть `render.yaml` для Blueprint.
-- Есть `/healthz` для проверки здоровья сервиса.
-- Python фиксируется через `.python-version`.
-- `FLASK_SECRET_KEY` Render генерирует автоматически.
-- `ADMIN_PASSWORD` вводится как секрет в Render и не хранится в GitHub.
-- Настроены secure-cookie для production.
-- Gunicorn запускается с одним worker, чтобы SQLite-демо не ловило лишние конфликты.
-- `.env` специально НЕ включён в архив.
+Настройки из `/admin/settings` больше не обязаны жить в `business_config.json`.
 
-## 1. Создай GitHub-репозиторий
+- Локально, если `SETTINGS_DATABASE_URL` пустой, настройки сохраняются в SQLite рядом с записями.
+- На production можно задать PostgreSQL URL через `SETTINGS_DATABASE_URL`.
+- При первом запуске движок автоматически импортирует текущий `business_config.json` в хранилище.
+- После этого изменения из конструктора читаются из БД и переживают restart/redeploy при использовании постоянной PostgreSQL БД.
+- `/healthz` показывает только тип хранилища и его состояние, без секрета подключения.
 
-Создай новый пустой репозиторий, например:
+## Обновление существующего razor-demo
 
-`razor-demo`
+1. Распакуй V2.1 и замени содержимое GitHub-репозитория RAZOR этими файлами.
+2. Настоящий `.env` в GitHub не загружай.
+3. В Render открой `razor-demo` → Environment.
+4. Оставь существующие `APP_ENV=production`, `FLASK_SECRET_KEY`, `ADMIN_PASSWORD`.
+5. Добавь `SETTINGS_DATABASE_URL` со строкой подключения к постоянной PostgreSQL БД.
+6. Сохрани переменные и запусти redeploy последнего commit.
+7. После deploy открой `/healthz`. В `settings_storage.backend` должно быть `postgres`.
+8. Войди в `/admin/settings`, поменяй тестовое поле, сохрани.
+9. Выполни Manual Deploy / restart и убедись, что изменение осталось.
 
-Загрузи в корень репозитория ВСЁ содержимое этой папки. В корне должны лежать:
+## Важно про записи клиентов
 
-- `app.py`
-- `requirements.txt`
-- `render.yaml`
-- `.python-version`
-- `.env.example`
-- папки `templates` и `static`
+V2.1 делает постоянными именно настройки конструктора через PostgreSQL. Сами клиентские записи пока используют `DATABASE_PATH` / SQLite.
+На Render с временной файловой системой это всё ещё DEMO-режим: записи могут исчезнуть после redeploy/restart.
 
-Не создавай и не загружай настоящий `.env`.
+Следующий production-шаг для платящего бизнеса — перенести таблицы `bookings` и `booking_events` в PostgreSQL тоже.
 
-## 2. Создай Blueprint на Render
+## Локальный запуск
 
-1. Открой Render Dashboard.
-2. Нажми `New` → `Blueprint`.
-3. Подключи GitHub.
-4. Выбери репозиторий `razor-demo`.
-5. Render автоматически прочитает `render.yaml`.
-6. При создании введи значение `ADMIN_PASSWORD`.
-7. Запусти создание Blueprint.
+Создай `.env` рядом с `app.py`:
 
-## 3. Дождись deploy
+```env
+APP_ENV=development
+ADMIN_PASSWORD=1234
+FLASK_SECRET_KEY=razor-local-secret
+DATABASE_PATH=bookings.db
+SETTINGS_DATABASE_URL=
+```
 
-Build command уже задан:
+Затем:
 
-`pip install -r requirements.txt`
+```bat
+pip install -r requirements.txt
+python app.py
+```
 
-Start command уже задан:
-
-`gunicorn app:app --workers 1 --threads 4 --timeout 120 --bind 0.0.0.0:$PORT`
-
-После успешного deploy Render выдаст адрес примерно:
-
-`https://razor-demo.onrender.com`
-
-## 4. Что проверить
-
-Открой по очереди:
-
-- `/healthz` — должен вернуть JSON `ok: true`.
-- `/` — главная RAZOR.
-- `/my-booking` — управление клиентской записью.
-- `/admin` — должен перекинуть на вход.
-
-Сделай тестовую запись и проверь её в админке.
-
-## 5. Telegram — позже
-
-Telegram для деплоя не обязателен. Если захочешь включить уведомления:
-
-Render → твой Web Service → Environment → Add Environment Variable
-
-Добавь:
-
-- `TELEGRAM_BOT_TOKEN`
-- `TELEGRAM_CHAT_ID`
-
-После сохранения Render перезапустит приложение.
-
-## ВАЖНО: SQLite на Render Free
-
-Эта сборка годится для публичного продающего DEMO.
-
-Render Free использует временную файловую систему. `bookings.db` создаётся и работает, но данные могут исчезнуть после:
-
-- spin-down / пробуждения сервиса;
-- рестарта;
-- redeploy.
-
-Поэтому текущий вариант НЕ предназначен для хранения реальных клиентских записей платящего бизнеса.
-
-Когда появится первый заказчик, следующий технический шаг — вынести данные в постоянную БД и только после этого запускать систему как production-сервис.
-
-## Особенность Free-сервиса
-
-После 15 минут без входящего трафика Render Free может усыпить Web Service. Первый посетитель после этого может увидеть загрузку примерно до минуты, пока сервер просыпается.
-
-Для демо на старте это допустимо и не требует оплаты.
+Локально PostgreSQL не нужен.

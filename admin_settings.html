@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{{ brand.name }} — Настройки</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/admin.css">
+  <style>:root{--gold:{{ brand.accent|default('#d9b65e') }};--gold2:{{ brand.accent_soft|default('#f1d894') }};}</style>
+</head>
+<body>
+<div class="admin-bg"></div>
+<header class="admin-nav shell">
+  <div><a class="brand" href="/admin">{{ brand.name }}<span>.</span></a><span class="admin-badge">ENGINE V2.1</span></div>
+  <div class="admin-actions">
+    <a href="/admin" class="outline-button">← Панель</a>
+    <a href="/" class="outline-button">Открыть сайт</a>
+    <button id="saveTop" class="gold-button">Сохранить</button>
+  </div>
+</header>
+<main class="shell admin-main settings-page">
+  <section class="settings-head">
+    <div>
+      <span class="eyebrow">КОНСТРУКТОР БИЗНЕСА</span>
+      <h1>Собери сайт без кода.</h1>
+      <p>Название, услуги, сотрудники, рабочие часы, тексты и цвета сохраняются в движок одной кнопкой.</p>
+    </div>
+    <div><div id="saveState" class="save-state">Загружаем конфигурацию…</div><div id="storageState" class="save-state" style="margin-top:8px">Проверяем хранилище…</div></div>
+  </section>
+
+  <section class="settings-grid">
+    <article class="settings-card">
+      <div class="settings-card-head"><div><span class="eyebrow">01</span><h2>Бренд</h2></div></div>
+      <div class="field-grid two">
+        <label>Название<input id="brandName"></label>
+        <label>Тип бизнеса<input id="brandType" placeholder="BARBERSHOP / CLINIC"></label>
+        <label>Город<input id="brandCity"></label>
+        <label>Страна<input id="brandCountry"></label>
+        <label>Рейтинг<input id="brandRating" placeholder="4.9"></label>
+        <label>Валюта<input id="currency" placeholder="₸"></label>
+      </div>
+      <label>Описание<textarea id="brandDescription" rows="3"></textarea></label>
+      <div class="field-grid two">
+        <label>Акцент<input id="accent" type="color"></label>
+        <label>Мягкий акцент<input id="accentSoft" type="color"></label>
+      </div>
+      <label>Hero изображение<input id="heroImage" type="url" placeholder="https://..."></label>
+      <label>Изображение админки<input id="adminImage" type="url" placeholder="https://..."></label>
+    </article>
+
+    <article class="settings-card">
+      <div class="settings-card-head"><div><span class="eyebrow">02</span><h2>Расписание</h2></div></div>
+      <div class="field-grid two">
+        <label>Открытие<input id="openTime" type="time"></label>
+        <label>Закрытие<input id="closeTime" type="time"></label>
+        <label>Шаг слота<select id="slotMinutes"><option value="15">15 мин</option><option value="30">30 мин</option><option value="60">60 мин</option></select></label>
+        <label>Окно записи<input id="windowDays" type="number" min="1" max="365"></label>
+        <label>Минимум до визита<input id="noticeMinutes" type="number" min="0" max="1440"></label>
+        <label>Часовой пояс<input id="timezone" placeholder="Asia/Almaty"></label>
+      </div>
+      <label>Подпись графика<input id="daysLabel" placeholder="Ежедневно"></label>
+      <div class="hint-box">После сохранения свободные слоты и защита пересечений автоматически используют новые рабочие часы.</div>
+    </article>
+
+    <article class="settings-card full">
+      <div class="settings-card-head"><div><span class="eyebrow">03</span><h2>Тексты сайта</h2></div></div>
+      <div class="field-grid two">
+        <label>Главный заголовок<textarea id="heroTitle" rows="3"></textarea></label>
+        <label>Подзаголовок<textarea id="heroLead" rows="3"></textarea></label>
+        <label>Заголовок услуг<input id="servicesTitle"></label>
+        <label>Описание услуг<textarea id="servicesIntro" rows="2"></textarea></label>
+        <label>Заголовок команды<input id="teamTitle"></label>
+        <label>Описание команды<textarea id="teamIntro" rows="2"></textarea></label>
+        <label>Заголовок записи<input id="bookingTitle"></label>
+        <label>Описание записи<textarea id="bookingIntro" rows="2"></textarea></label>
+      </div>
+      <label>Текст в подвале<input id="footerText"></label>
+    </article>
+
+    <article class="settings-card full">
+      <div class="settings-card-head"><div><span class="eyebrow">04</span><h2>Услуги</h2></div><button id="addService" class="outline-button">+ Добавить услугу</button></div>
+      <div id="servicesEditor" class="editor-list"></div>
+    </article>
+
+    <article class="settings-card full">
+      <div class="settings-card-head"><div><span class="eyebrow">05</span><h2>Сотрудники</h2></div><button id="addStaff" class="outline-button">+ Добавить сотрудника</button></div>
+      <div id="staffEditor" class="editor-list"></div>
+    </article>
+
+    <article class="settings-card full">
+      <div class="settings-card-head"><div><span class="eyebrow">06</span><h2>Терминология</h2></div></div>
+      <div class="field-grid two">
+        <label>Кто оказывает услугу<input id="staffSingular" placeholder="мастер"></label>
+        <label>Множественное число<input id="staffPlural" placeholder="мастера"></label>
+        <label>Родительный падеж<input id="staffGenitive" placeholder="мастеров"></label>
+        <label>Название визита<input id="visitTerm" placeholder="визит"></label>
+        <label>Кнопка записи<input id="bookingAction" placeholder="Записаться"></label>
+        <label>Название команды<input id="teamSection" placeholder="КОМАНДА"></label>
+      </div>
+    </article>
+  </section>
+
+  <section class="settings-footer">
+    <div><strong>Перед сохранением</strong><span>Проверь услуги и сотрудников — именно они участвуют в бронировании.</span></div>
+    <button id="saveBottom" class="gold-button">Сохранить изменения</button>
+  </section>
+</main>
+<script>
+const $=s=>document.querySelector(s); let config=null; let storage=null;
+function showStorage(){if(!storage)return;const isPg=storage.backend==='postgres';$('#storageState').textContent=isPg?'Хранилище: PostgreSQL • настройки переживут redeploy':'Хранилище: SQLite • локально нормально, на Render нужен SETTINGS_DATABASE_URL';$('#storageState').className='save-state '+(isPg?'ok':'');}
+const textFields={hero_title:'heroTitle',hero_lead:'heroLead',services_title:'servicesTitle',services_intro:'servicesIntro',team_title:'teamTitle',team_intro:'teamIntro',booking_title:'bookingTitle',booking_intro:'bookingIntro',footer_text:'footerText'};
+const api=async(url,opts={})=>{const r=await fetch(url,opts);const d=await r.json();if(r.status===401){location='/admin/login';throw Error('auth')}if(!r.ok)throw Error(d.error||'Ошибка');return d};
+function serviceCard(item={},i){const el=document.createElement('div');el.className='editor-item';el.innerHTML=`<div class="editor-index">${i+1}</div><div class="editor-fields service-fields"><label>Название<input data-k="name" value="${esc(item.name||'')}"></label><label>Цена<input data-k="price" type="number" min="0" value="${item.price??0}"></label><label>Длительность<select data-k="duration"><option value="30">30 мин</option><option value="45">45 мин</option><option value="60">60 мин</option><option value="90">90 мин</option><option value="120">120 мин</option></select></label><label class="wide">Описание<input data-k="description" value="${esc(item.description||'')}"></label></div><button class="remove-item" title="Удалить">×</button>`;el.querySelector('[data-k="duration"]').value=String(item.duration??60);el.querySelector('.remove-item').onclick=()=>el.remove();return el}
+function staffCard(item={},i){const el=document.createElement('div');el.className='editor-item';el.innerHTML=`<div class="editor-index">${i+1}</div><div class="editor-fields staff-fields"><label>Имя<input data-k="name" value="${esc(item.name||'')}"></label><label>Рейтинг<input data-k="rating" value="${esc(item.rating||'')}"></label><label>Опыт<input data-k="experience" value="${esc(item.experience||'')}"></label><label>Специализация<input data-k="speciality" value="${esc(item.speciality||'')}"></label><label class="wide">Фото URL<input data-k="image" type="url" value="${esc(item.image||'')}"></label></div><button class="remove-item" title="Удалить">×</button>`;el.querySelector('.remove-item').onclick=()=>el.remove();return el}
+function esc(s){return String(s??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+function readItems(sel,keys){return [...$(sel).children].map(row=>{const o={};keys.forEach(k=>{let e=row.querySelector(`[data-k="${k}"]`);o[k]=k==='price'||k==='duration'?Number(e.value):e.value.trim()});return o})}
+function fill(){const b=config.brand,c=config.content||{},s=config.schedule,co=config.commerce,t=config.terminology||{},v=config.visuals||{};$('#brandName').value=b.name||'';$('#brandType').value=b.type||'';$('#brandCity').value=b.city||'';$('#brandCountry').value=b.country||'';$('#brandDescription').value=b.description||'';$('#brandRating').value=b.rating||'';$('#accent').value=b.accent||'#e5bf63';$('#accentSoft').value=b.accent_soft||'#f0d28a';$('#currency').value=co.currency||'₸';$('#heroImage').value=v.hero_image||'';$('#adminImage').value=v.admin_image||'';$('#openTime').value=s.open;$('#closeTime').value=s.close;$('#slotMinutes').value=String(s.slot_minutes||60);$('#windowDays').value=s.booking_window_days||60;$('#noticeMinutes').value=s.min_notice_minutes||30;$('#timezone').value=s.timezone||'Asia/Almaty';$('#daysLabel').value=s.days_label||'';Object.entries(textFields).forEach(([k,id])=>$('#'+id).value=c[k]||'');$('#staffSingular').value=t.staff_singular||'';$('#staffPlural').value=t.staff_plural||'';$('#staffGenitive').value=t.staff_plural_genitive||'';$('#visitTerm').value=t.visit||'';$('#bookingAction').value=t.booking_action||'';$('#teamSection').value=t.team_section||'';renderEditors()}
+function renderEditors(){$('#servicesEditor').innerHTML='';config.services.forEach((x,i)=>$('#servicesEditor').appendChild(serviceCard(x,i)));$('#staffEditor').innerHTML='';config.staff.forEach((x,i)=>$('#staffEditor').appendChild(staffCard(x,i)))}
+function collect(){const next=structuredClone(config);next.brand={...next.brand,name:$('#brandName').value.trim(),type:$('#brandType').value.trim(),city:$('#brandCity').value.trim(),country:$('#brandCountry').value.trim(),description:$('#brandDescription').value.trim(),rating:$('#brandRating').value.trim(),accent:$('#accent').value,accent_soft:$('#accentSoft').value};next.commerce={...next.commerce,currency:$('#currency').value.trim()};next.visuals={...next.visuals,hero_image:$('#heroImage').value.trim(),admin_image:$('#adminImage').value.trim()};next.schedule={...next.schedule,open:$('#openTime').value,close:$('#closeTime').value,slot_minutes:Number($('#slotMinutes').value),booking_window_days:Number($('#windowDays').value),min_notice_minutes:Number($('#noticeMinutes').value),timezone:$('#timezone').value.trim(),days_label:$('#daysLabel').value.trim()};next.content={...next.content};Object.entries(textFields).forEach(([k,id])=>next.content[k]=$('#'+id).value.trim());next.terminology={...next.terminology,staff_singular:$('#staffSingular').value.trim(),staff_plural:$('#staffPlural').value.trim(),staff_plural_genitive:$('#staffGenitive').value.trim(),visit:$('#visitTerm').value.trim(),booking_action:$('#bookingAction').value.trim(),team_section:$('#teamSection').value.trim()};next.services=readItems('#servicesEditor',['name','price','duration','description']);next.staff=readItems('#staffEditor',['name','rating','experience','speciality','image']);return next}
+async function save(){try{const btns=[$('#saveTop'),$('#saveBottom')];btns.forEach(b=>{b.disabled=true;b.textContent='Сохраняем…'});const d=await api('/api/admin/settings',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({config:collect()})});config=d.config;storage=d.storage||storage;showStorage();$('#saveState').textContent='Сохранено. Сайт уже использует новые настройки.';$('#saveState').className='save-state ok';btns.forEach(b=>{b.disabled=false;b.textContent='Сохранить изменения'});$('#saveTop').textContent='Сохранить';renderEditors()}catch(e){$('#saveState').textContent=e.message;$('#saveState').className='save-state error';$('#saveTop').disabled=false;$('#saveBottom').disabled=false;$('#saveTop').textContent='Сохранить';$('#saveBottom').textContent='Сохранить изменения'}}
+$('#addService').onclick=()=>$('#servicesEditor').appendChild(serviceCard({},$('#servicesEditor').children.length));$('#addStaff').onclick=()=>$('#staffEditor').appendChild(staffCard({},$('#staffEditor').children.length));$('#saveTop').onclick=save;$('#saveBottom').onclick=save;
+(async()=>{try{const d=await api('/api/admin/settings');config=d.config;storage=d.storage||null;fill();showStorage();$('#saveState').textContent='Готово к редактированию.'}catch(e){$('#saveState').textContent=e.message;$('#saveState').className='save-state error'}})();
+</script>
+</body></html>

@@ -63,3 +63,44 @@ This build is prepared for Render Web Service / Blueprint deployment.
 
 ## Important limitation of Render Free
 The local filesystem is ephemeral. The SQLite database works for a live demo, but data can disappear after a restart, redeploy, or free-service spin-down. Do not use this SQLite setup for a paying client's production data. For a real client, migrate bookings to a persistent database before launch.
+
+## Product polish update
+
+This build adds production-oriented booking and admin workflow improvements:
+- field-level booking validation and clearer confirmation state;
+- Kazakhstan-friendly phone formatting on the client form;
+- server-side slot revalidation before insert;
+- working hours generated from 10:00–21:00 with 60-minute slots;
+- 30-minute minimum same-day booking notice;
+- booking calculations pinned to Asia/Almaty timezone;
+- double-booking protection via active-slot unique index and conflict checks;
+- safe booking status transitions;
+- admin quick views for upcoming, today, new, next 7 days and all bookings;
+- upcoming bookings sorted chronologically for daily operations.
+
+---
+
+## RAZOR Engine V2 — Админ-конструктор
+
+В версии V2 появился полноценный раздел `/admin/settings`.
+
+Через него владелец бизнеса может без редактирования JSON:
+
+- изменить название, тип бизнеса, город, страну и описание;
+- поменять акцентные цвета и изображения;
+- настроить рабочие часы, шаг слотов, окно записи и часовой пояс;
+- редактировать основные тексты сайта;
+- добавлять и удалять услуги с ценой и длительностью;
+- добавлять и удалять сотрудников с рейтингом, опытом, специализацией и фото;
+- менять терминологию: мастер, врач, специалист, визит и т.д.
+
+Сохранение выполняется через защищённый API администратора. Конфигурация валидируется, сохраняется атомарно в `business_config.json`, после чего runtime движка сразу подхватывает новые настройки без ручного перезапуска кода.
+
+## Engine V2.1 — persistent settings
+
+В V2.1 конструктор `/admin/settings` использует слой хранения настроек:
+
+- SQLite локально;
+- PostgreSQL при наличии `SETTINGS_DATABASE_URL`.
+
+Текущий `business_config.json` автоматически импортируется при первом запуске и остаётся seed/backup-конфигом.

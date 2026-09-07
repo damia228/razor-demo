@@ -1,0 +1,112 @@
+{
+  "brand": {
+    "name": "RAZOR",
+    "tagline": "Точно. Чисто. Без суеты.",
+    "type": "BARBERSHOP",
+    "city": "ALMATY",
+    "country": "Казахстан",
+    "description": "Современный барбершоп в Алматы. Онлайн-запись к мастеру за минуту.",
+    "accent": "#e5bf63",
+    "accent_soft": "#f0d28a",
+    "rating": "4.9"
+  },
+  "content": {
+    "hero_title": "Форма, которая работает на тебя.",
+    "hero_lead": "Точная стрижка, сильный силуэт и запись без звонков. Выбери мастера и свободное время — остальное сделаем мы.",
+    "services_title": "Понятный выбор. Без скрытых цен.",
+    "services_intro": "Каждая услуга включает консультацию по форме и финальную укладку.",
+    "team_title": "Мастер — половина результата.",
+    "team_intro": "Разные техники и характер. Один стандарт качества.",
+    "booking_title": "Твоё время. Твой мастер.",
+    "booking_intro": "После бронирования ты получишь код записи. С ним можно проверить статус или отменить визит самостоятельно.",
+    "experience_title": "Никаких очередей. Никакой неопределённости.",
+    "experience_intro": "Сайт показывает только реально свободные часы выбранного специалиста. После записи слот сразу блокируется.",
+    "footer_text": "Современная система онлайн-записи для сервисного бизнеса."
+  },
+  "terminology": {
+    "staff_singular": "мастер",
+    "staff_plural": "мастера",
+    "staff_plural_genitive": "мастеров",
+    "team_section": "КОМАНДА",
+    "booking_action": "Записаться",
+    "visit": "визит"
+  },
+  "schedule": {
+    "open": "10:00",
+    "close": "21:00",
+    "slot_minutes": 60,
+    "booking_window_days": 60,
+    "min_notice_minutes": 30,
+    "timezone": "Asia/Almaty",
+    "days_label": "Ежедневно"
+  },
+  "commerce": {
+    "currency": "₸",
+    "phone_placeholder": "+7 777 000 00 00",
+    "reference_prefix": "RZ"
+  },
+  "services": [
+    {
+      "name": "Стрижка",
+      "price": 6000,
+      "duration": 60,
+      "description": "Форма, мытьё и укладка под твой тип волос."
+    },
+    {
+      "name": "Стрижка + борода",
+      "price": 9000,
+      "duration": 60,
+      "description": "Полный образ: волосы, борода, контуры и финиш."
+    },
+    {
+      "name": "Борода",
+      "price": 4000,
+      "duration": 60,
+      "description": "Форма бороды, чистые контуры и уход."
+    }
+  ],
+  "staff": [
+    {
+      "name": "Арман",
+      "rating": "4.9",
+      "experience": "5 лет",
+      "speciality": "Классика • Fade • Styling",
+      "image": "https://images.unsplash.com/photo-1622288432450-277d0fef5ed6?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "name": "Тимур",
+      "rating": "5.0",
+      "experience": "7 лет",
+      "speciality": "Fade • Crop • Modern",
+      "image": "https://images.unsplash.com/photo-1582893561942-d61adcb2e534?auto=format&fit=crop&w=900&q=80"
+    },
+    {
+      "name": "Данияр",
+      "rating": "4.8",
+      "experience": "4 года",
+      "speciality": "Борода • Классика • Fade",
+      "image": "https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=900&q=80"
+    }
+  ],
+  "reviews": [
+    {
+      "rating": "★★★★★",
+      "text": "Наконец запись без переписок. Выбрал время, пришёл — всё чётко.",
+      "author": "Алексей, демо-отзыв"
+    },
+    {
+      "rating": "★★★★★",
+      "text": "Всё прошло точно по времени. Понравились понятная цена и удобный выбор специалиста.",
+      "author": "Тимур, демо-отзыв"
+    },
+    {
+      "rating": "★★★★★",
+      "text": "Сайт удобнее большинства приложений: видно специалиста, цену и свободные часы сразу.",
+      "author": "Марат, демо-отзыв"
+    }
+  ],
+  "visuals": {
+    "hero_image": "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=1000&q=85",
+    "admin_image": "https://images.unsplash.com/photo-1621607512214-68297480165e?auto=format&fit=crop&w=1400&q=80"
+  }
+}
