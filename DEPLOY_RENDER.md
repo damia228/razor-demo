@@ -35,7 +35,7 @@ V2.1 делает постоянными именно настройки кон�
 
 ```env
 APP_ENV=development
-ADMIN_PASSWORD=1234
+ADMIN_PASSWORD=CHANGE_THIS_LOCAL_PASSWORD
 FLASK_SECRET_KEY=razor-local-secret
 DATABASE_PATH=bookings.db
 SETTINGS_DATABASE_URL=

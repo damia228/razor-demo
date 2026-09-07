@@ -4,22 +4,23 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#08080a">
-  <meta name="description" content="RAZOR — современный барбершоп в Алматы. Онлайн-запись к мастеру за минуту.">
-  <title>RAZOR — Barbershop Almaty</title>
+  <meta name="description" content="{{ brand.description }}">
+  <title>{{ brand.name }} — {{ brand.type|title }} {{ brand.city|title }}</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/static/style.css">
+  <style>:root{--gold:{{ brand.accent|default('#d9b65e') }};--gold2:{{ brand.accent_soft|default('#f1d894') }};}</style>
 </head>
 <body>
   <div class="noise"></div>
 
   <header class="hero" id="top">
     <nav class="nav shell">
-      <a class="brand" href="#top" aria-label="RAZOR — на главную">RAZOR<span>.</span></a>
+      <a class="brand" href="#top" aria-label="{{ brand.name }} — на главную">{{ brand.name }}<span>.</span></a>
       <div class="nav-links">
         <a href="#services">Услуги</a>
-        <a href="#masters">Мастера</a>
+        <a href="#masters">{{ terms.staff_plural|default('Специалисты')|capitalize }}</a>
         <a href="#reviews">Отзывы</a>
         <a href="#faq">FAQ</a>
       </div>
@@ -31,42 +32,42 @@
 
     <div class="hero-grid shell">
       <div class="hero-copy">
-        <div class="kicker"><span></span> BARBERSHOP • ALMATY</div>
-        <h1>Форма, которая<br><em>работает на тебя.</em></h1>
-        <p class="hero-lead">Точная стрижка, сильный силуэт и запись без звонков. Выбери мастера и свободное время — остальное сделаем мы.</p>
+        <div class="kicker"><span></span> {{ brand.type }} • {{ brand.city }}</div>
+        <h1>{{ content.hero_title }}</h1>
+        <p class="hero-lead">{{ content.hero_lead }}</p>
         <div class="hero-actions">
           <a class="primary" href="#booking">Записаться онлайн</a>
-          <a class="secondary" href="#masters">Выбрать мастера</a>
+          <a class="secondary" href="#masters">Выбрать {{ terms.staff_singular|default('специалиста') }}</a>
         </div>
         <div class="hero-trust">
-          <div><strong>4.9</strong><span>средний рейтинг</span></div>
-          <div><strong>3</strong><span>мастера</span></div>
+          <div><strong>{{ brand.rating|default('4.9') }}</strong><span>средний рейтинг</span></div>
+          <div><strong>{{ masters|length }}</strong><span>{{ terms.staff_plural|default('специалисты') }}</span></div>
           <div><strong>1 мин</strong><span>на запись</span></div>
         </div>
       </div>
       <div class="hero-visual" aria-hidden="true">
-        <div class="hero-photo"></div>
+        <div class="hero-photo" style="background-image:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.42)),url('{{ business.visuals.hero_image }}')"></div>
         <div class="floating-card fc-one"><span>Сегодня</span><strong>Свободные окна</strong><i>14:00 • 17:00 • 19:00</i></div>
-        <div class="floating-card fc-two"><span>RAZOR STANDARD</span><strong>Точно. Чисто. Без суеты.</strong></div>
+        <div class="floating-card fc-two"><span>{{ brand.name }} STANDARD</span><strong>{{ brand.tagline }}</strong></div>
       </div>
     </div>
 
-    <div class="marquee" aria-hidden="true"><div>RAZOR • CLEAN CUTS • ALMATY • ONLINE BOOKING • RAZOR • CLEAN CUTS • ALMATY • ONLINE BOOKING •</div></div>
+    <div class="marquee" aria-hidden="true"><div>{{ brand.name }} • {{ brand.type }} • {{ brand.city }} • ONLINE BOOKING • {{ brand.name }} • {{ brand.type }} • {{ brand.city }} • ONLINE BOOKING •</div></div>
   </header>
 
   <main>
     <section class="section shell" id="services">
       <div class="section-title">
-        <div><span class="eyebrow">01 / УСЛУГИ</span><h2>Понятный выбор.<br>Без скрытых цен.</h2></div>
-        <p>Каждая услуга включает консультацию по форме и финальную укладку.</p>
+        <div><span class="eyebrow">01 / УСЛУГИ</span><h2>{{ content.services_title }}</h2></div>
+        <p>{{ content.services_intro }}</p>
       </div>
       <div class="service-grid">
         {% for name, item in services.items() %}
         <article class="service-card">
           <div class="service-top"><span>0{{ loop.index }}</span><i>{{ item.duration }} мин</i></div>
           <h3>{{ name }}</h3>
-          <p>{% if name == 'Стрижка' %}Форма, мытьё и укладка под твой тип волос.{% elif name == 'Стрижка + борода' %}Полный образ: волосы, борода, контуры и финиш.{% else %}Форма бороды, чистые контуры и уход.{% endif %}</p>
-          <div class="service-bottom"><strong>{{ "{:,.0f}".format(item.price).replace(',', ' ') }} ₸</strong><button type="button" class="choose-service" data-service="{{ name }}">Выбрать</button></div>
+          <p>{{ item.description }}</p>
+          <div class="service-bottom"><strong>{{ "{:,.0f}".format(item.price).replace(',', ' ') }} {{ currency }}</strong><button type="button" class="choose-service" data-service="{{ name }}">Выбрать</button></div>
         </article>
         {% endfor %}
       </div>
@@ -75,13 +76,13 @@
     <section class="masters-section" id="masters">
       <div class="shell">
         <div class="section-title inverse">
-          <div><span class="eyebrow">02 / КОМАНДА</span><h2>Мастер — половина результата.</h2></div>
-          <p>Разные техники и характер. Один стандарт качества RAZOR.</p>
+          <div><span class="eyebrow">02 / {{ terms.team_section|default('КОМАНДА') }}</span><h2>{{ content.team_title }}</h2></div>
+          <p>{{ content.team_intro }}</p>
         </div>
         <div class="master-grid">
           {% for name, item in masters.items() %}
           <article class="master-card">
-            <div class="master-image master-{{ loop.index }}"><div class="master-overlay"><span>★ {{ item.rating }}</span><span>{{ item.experience }}</span></div></div>
+            <div class="master-image" style="background-image:linear-gradient(180deg,transparent 60%,rgba(0,0,0,.65)),url('{{ item.image }}')"><div class="master-overlay"><span>★ {{ item.rating }}</span><span>{{ item.experience }}</span></div></div>
             <div class="master-body"><h3>{{ name }}</h3><p>{{ item.speciality }}</p><button type="button" class="choose-master" data-master="{{ name }}">Записаться к {{ name }}</button></div>
           </article>
           {% endfor %}
@@ -90,36 +91,34 @@
     </section>
 
     <section class="experience shell">
-      <div class="experience-card big"><span class="eyebrow">RAZOR EXPERIENCE</span><h2>Никаких очередей.<br>Никакой неопределённости.</h2><p>Сайт показывает только реально свободные часы выбранного мастера. После записи слот сразу блокируется.</p></div>
-      <div class="experience-card"><span class="metric">01</span><h3>Выбери</h3><p>Услугу и мастера.</p></div>
+      <div class="experience-card big"><span class="eyebrow">{{ brand.name }} EXPERIENCE</span><h2>{{ content.experience_title }}</h2><p>{{ content.experience_intro }}</p></div>
+      <div class="experience-card"><span class="metric">01</span><h3>Выбери</h3><p>Услугу и {{ terms.staff_singular|default('специалиста') }}.</p></div>
       <div class="experience-card"><span class="metric">02</span><h3>Забронируй</h3><p>Свободное время.</p></div>
       <div class="experience-card"><span class="metric">03</span><h3>Управляй</h3><p>Своей записью по коду.</p></div>
     </section>
 
     <section class="section reviews" id="reviews">
       <div class="shell">
-        <div class="section-title"><div><span class="eyebrow">03 / ОТЗЫВЫ</span><h2>Возвращаются не из вежливости.</h2></div><div class="rating-box"><strong>4.9</strong><span>★★★★★</span><small>демо-рейтинг</small></div></div>
+        <div class="section-title"><div><span class="eyebrow">03 / ОТЗЫВЫ</span><h2>Возвращаются не из вежливости.</h2></div><div class="rating-box"><strong>{{ brand.rating|default('4.9') }}</strong><span>★★★★★</span><small>демо-рейтинг</small></div></div>
         <div class="review-grid">
-          <blockquote><div>★★★★★</div><p>«Наконец запись без переписок. Выбрал время, пришёл — всё чётко.»</p><footer>— Алексей, демо-отзыв</footer></blockquote>
-          <blockquote><div>★★★★★</div><p>«Очень чистый fade. Понравилось, что мастер сначала уточнил форму, а не начал сразу стричь.»</p><footer>— Тимур, демо-отзыв</footer></blockquote>
-          <blockquote><div>★★★★★</div><p>«Сайт удобнее большинства приложений: видно мастера, цену и свободные часы сразу.»</p><footer>— Марат, демо-отзыв</footer></blockquote>
+          {% for review in business.reviews %}<blockquote><div>{{ review.rating }}</div><p>«{{ review.text }}»</p><footer>— {{ review.author }}</footer></blockquote>{% endfor %}
         </div>
       </div>
     </section>
 
     <section class="booking-section" id="booking">
       <div class="shell booking-layout">
-        <div class="booking-copy"><span class="eyebrow">04 / ОНЛАЙН-ЗАПИСЬ</span><h2>Твоё время.<br><em>Твой мастер.</em></h2><p>После бронирования ты получишь код записи. С ним можно проверить статус или отменить визит самостоятельно.</p><ul><li>Только свободные часы</li><li>Мгновенная блокировка слота</li><li>Управление записью по коду</li></ul></div>
+        <div class="booking-copy"><span class="eyebrow">04 / ОНЛАЙН-ЗАПИСЬ</span><h2>{{ content.booking_title }}</h2><p>{{ content.booking_intro }}</p><ul><li>Только свободные часы</li><li>Мгновенная блокировка слота</li><li>Управление записью по коду</li></ul></div>
 
         <div class="booking-panel">
           <div class="booking-steps"><span class="active">1. Контакты</span><span>2. Выбор</span><span>3. Готово</span></div>
           <form id="leadForm" novalidate>
             <div class="field"><label for="name">Имя *</label><input id="name" name="name" maxlength="60" autocomplete="name" placeholder="Например, Дамир" required></div>
-            <div class="field"><label for="phone">Телефон *</label><input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="+7 777 000 00 00" required></div>
+            <div class="field"><label for="phone">Телефон *</label><input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="{{ commerce.phone_placeholder }}" required></div>
             <div class="field"><label for="service">Услуга *</label><select id="service" name="service" required><option value="">Выберите услугу</option>{% for name in services %}<option value="{{ name }}">{{ name }}</option>{% endfor %}</select></div>
-            <div class="field"><label for="master">Мастер *</label><select id="master" name="master" required><option value="">Выберите мастера</option>{% for name in masters %}<option value="{{ name }}">{{ name }}</option>{% endfor %}</select></div>
+            <div class="field"><label for="master">{{ terms.staff_singular|default('Специалист')|capitalize }} *</label><select id="master" name="master" required><option value="">Выберите {{ terms.staff_singular|default('специалиста') }}</option>{% for name in masters %}<option value="{{ name }}">{{ name }}</option>{% endfor %}</select></div>
             <div class="field"><label for="date">Дата *</label><input id="date" type="date" name="date" required></div>
-            <div class="field"><label for="bookingTime">Время *</label><select id="bookingTime" name="bookingTime" required disabled><option value="">Сначала мастер и дата</option></select><small id="slotHint"></small></div>
+            <div class="field"><label for="bookingTime">Время *</label><select id="bookingTime" name="bookingTime" required disabled><option value="">Сначала услуга, специалист и дата</option></select><small id="slotHint"></small></div>
             <div class="field full"><label for="clientNote">Комментарий <span>необязательно</span></label><textarea id="clientNote" name="clientNote" maxlength="500" rows="3" placeholder="Например: хочу оставить длину сверху"></textarea></div>
             <label class="consent full"><input type="checkbox" required><span>Я подтверждаю данные записи и согласен на обработку информации, необходимой для бронирования.</span></label>
             <button class="submit-button full" type="submit"><span>Забронировать время</span><b>→</b></button>
@@ -127,7 +126,7 @@
           </form>
 
           <div id="successCard" class="success-card" hidden>
-            <div class="success-icon">✓</div><span class="eyebrow">ЗАПИСЬ СОЗДАНА</span><h3>Время за тобой.</h3><p id="successSummary"></p><div class="reference-box"><span>Код записи</span><strong id="referenceCode"></strong><button type="button" id="copyReference">Копировать</button></div><p class="success-note">Сохрани код. Он понадобится для проверки статуса или отмены записи.</p><div class="success-actions"><a href="/my-booking" class="primary small">Управлять записью</a><button type="button" class="secondary small" id="newBooking">Новая запись</button></div>
+            <div class="success-icon">✓</div><span class="eyebrow">ЗАПИСЬ СОЗДАНА</span><h3>Время за тобой.</h3><p id="successSummary"></p><div class="success-details"><div><span>Статус</span><strong id="successStatus">Новая</strong></div><div><span>Стоимость</span><strong id="successPrice">—</strong></div></div><div class="reference-box"><span>Код записи</span><strong id="referenceCode"></strong><button type="button" id="copyReference">Копировать</button></div><p class="success-note">Сохрани код. Администратор подтвердит запись; проверить статус или отменить визит можно самостоятельно.</p><div class="success-actions"><a href="/my-booking" class="primary small">Управлять записью</a><button type="button" class="secondary small" id="newBooking">Новая запись</button></div>
           </div>
         </div>
       </div>
@@ -139,12 +138,12 @@
         <details><summary>Как понять, что запись создана?<span>+</span></summary><p>После отправки формы сайт покажет уникальный код записи. Слот сразу исчезнет из доступных для других клиентов.</p></details>
         <details><summary>Можно отменить запись?<span>+</span></summary><p>Да. Открой «Моя запись», введи код и телефон. Для новой или подтверждённой записи доступна самостоятельная отмена.</p></details>
         <details><summary>Нужно ли регистрироваться?<span>+</span></summary><p>Нет. Аккаунт не нужен — достаточно номера телефона и кода записи.</p></details>
-        <details><summary>Когда появятся новые даты?<span>+</span></summary><p>В демо-системе бронирование открыто на 60 дней вперёд.</p></details>
+        <details><summary>Когда появятся новые даты?<span>+</span></summary><p>Бронирование открыто на {{ schedule.booking_window_days }} дней вперёд.</p></details>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer"><div class="shell footer-grid"><div><a class="brand" href="#top">RAZOR<span>.</span></a><p>Современная система онлайн-записи для барбершопа.</p></div><div><strong>Навигация</strong><a href="#services">Услуги</a><a href="#masters">Мастера</a><a href="/my-booking">Моя запись</a></div><div><strong>Демо-контакты</strong><span>Алматы, Казахстан</span><span>Ежедневно 10:00–21:00</span></div></div><div class="shell footer-bottom"><span>© 2026 RAZOR. Demo product.</span><a href="/admin">Admin</a></div></footer>
+  <footer class="site-footer"><div class="shell footer-grid"><div><a class="brand" href="#top">{{ brand.name }}<span>.</span></a><p>{{ content.footer_text }}</p></div><div><strong>Навигация</strong><a href="#services">Услуги</a><a href="#masters">{{ terms.staff_plural|default('Специалисты')|capitalize }}</a><a href="/my-booking">Моя запись</a></div><div><strong>Контакты</strong><span>{{ brand.city|title }}, {{ brand.country }}</span><span>{{ schedule.days_label }} {{ schedule.open }}–{{ schedule.close }}</span></div></div><div class="shell footer-bottom"><span>© 2026 {{ brand.name }}. Powered by RAZOR Engine.</span><a href="/admin">Admin</a></div></footer>
 
 <script>
 const form = document.getElementById('leadForm');
@@ -152,12 +151,17 @@ const serviceSelect = document.getElementById('service');
 const masterSelect = document.getElementById('master');
 const dateInput = document.getElementById('date');
 const timeSelect = document.getElementById('bookingTime');
+const phoneInput = document.getElementById('phone');
 const slotHint = document.getElementById('slotHint');
 const formStatus = document.getElementById('formStatus');
 const successCard = document.getElementById('successCard');
 const referenceCode = document.getElementById('referenceCode');
 const successSummary = document.getElementById('successSummary');
+const successStatus = document.getElementById('successStatus');
+const successPrice = document.getElementById('successPrice');
 const bookingSteps = document.querySelector('.booking-steps');
+const submitButton = form.querySelector('.submit-button');
+const submitText = submitButton.querySelector('span');
 
 function localISODate(d = new Date()) {
   const y = d.getFullYear();
@@ -165,46 +169,114 @@ function localISODate(d = new Date()) {
   const day = String(d.getDate()).padStart(2,'0');
   return `${y}-${m}-${day}`;
 }
-const maxDate = new Date(); maxDate.setDate(maxDate.getDate()+60);
+function prettyDate(value){
+  if(!value) return '';
+  return new Intl.DateTimeFormat('ru-RU',{day:'numeric',month:'long',year:'numeric'}).format(new Date(`${value}T12:00:00`));
+}
+const CURRENCY={{ currency|tojson }};
+const BOOKING_WINDOW_DAYS={{ schedule.booking_window_days|int }};
+function money(value){ return Number(value||0).toLocaleString('ru-RU') + ' ' + CURRENCY; }
+function clearFieldErrors(){
+  form.querySelectorAll('.field.invalid').forEach(el=>el.classList.remove('invalid'));
+  form.querySelectorAll('.field-error').forEach(el=>el.remove());
+}
+function showFieldError(fieldName,message){
+  const control=form.elements[fieldName];
+  if(!control) return;
+  const field=control.closest('.field');
+  if(!field) return;
+  field.classList.add('invalid');
+  const error=document.createElement('small');
+  error.className='field-error'; error.textContent=message;
+  field.appendChild(error);
+  control.focus({preventScroll:true});
+  field.scrollIntoView({behavior:'smooth',block:'center'});
+}
+function setSubmitting(on){
+  submitButton.disabled=on;
+  submitText.textContent=on?'Бронируем…':'Забронировать время';
+}
+
+const maxDate = new Date(); maxDate.setDate(maxDate.getDate()+BOOKING_WINDOW_DAYS);
 dateInput.min = localISODate();
 dateInput.max = localISODate(maxDate);
 
 function scrollToBooking(){ document.getElementById('booking').scrollIntoView({behavior:'smooth'}); }
-document.querySelectorAll('.choose-service').forEach(btn => btn.addEventListener('click', () => { serviceSelect.value = btn.dataset.service; scrollToBooking(); }));
-document.querySelectorAll('.choose-master').forEach(btn => btn.addEventListener('click', () => { masterSelect.value = btn.dataset.master; scrollToBooking(); loadSlots(); }));
+document.querySelectorAll('.choose-service').forEach(btn => btn.addEventListener('click', () => { serviceSelect.value = btn.dataset.service; scrollToBooking(); syncBookingStep(); }));
+document.querySelectorAll('.choose-master').forEach(btn => btn.addEventListener('click', () => { masterSelect.value = btn.dataset.master; scrollToBooking(); loadSlots(); syncBookingStep(); }));
 
 async function loadSlots(){
-  const master = masterSelect.value, date = dateInput.value;
+  const master = masterSelect.value, service = serviceSelect.value, date = dateInput.value;
+  const previous=timeSelect.value;
   timeSelect.disabled = true; slotHint.textContent = '';
   timeSelect.innerHTML = '<option value="">Загрузка...</option>';
-  if(!master || !date){ timeSelect.innerHTML = '<option value="">Сначала мастер и дата</option>'; return; }
+  if(!service || !master || !date){ timeSelect.innerHTML = '<option value="">Сначала услуга, специалист и дата</option>'; return; }
   try{
-    const res = await fetch(`/api/slots?${new URLSearchParams({master,date})}`); const data = await res.json();
+    const res = await fetch(`/api/slots?${new URLSearchParams({service,master,date})}`); const data = await res.json();
     if(!res.ok) throw new Error(data.error || 'Не удалось загрузить время');
-    if(!data.available.length){ timeSelect.innerHTML = '<option value="">Свободных часов нет</option>'; slotHint.textContent = 'Попробуй другого мастера или дату.'; return; }
+    if(!data.available.length){ timeSelect.innerHTML = '<option value="">Свободных часов нет</option>'; slotHint.textContent = `На эту дату свободных слотов нет. Режим работы ${data.business?.open || '10:00'}–${data.business?.close || '21:00'}.`; return; }
     timeSelect.innerHTML = '<option value="">Выберите время</option>' + data.available.map(t => `<option value="${t}">${t}</option>`).join('');
+    if(data.available.includes(previous)) timeSelect.value=previous;
     timeSelect.disabled = false;
-    slotHint.textContent = data.busy.length ? `Занято: ${data.busy.join(', ')}` : 'Все часы свободны.';
+    const busyText=data.busy.length ? ` • занято ${data.busy.length}` : '';
+    slotHint.textContent = `Свободно ${data.available.length} • ${data.business.open}–${data.business.close}${busyText}`;
   }catch(err){ timeSelect.innerHTML = '<option value="">Ошибка загрузки</option>'; slotHint.textContent = err.message; }
 }
-masterSelect.addEventListener('change', loadSlots); dateInput.addEventListener('change', loadSlots);
+function syncBookingStep(){
+  const spans = bookingSteps.querySelectorAll('span');
+  spans.forEach(s => s.classList.remove('active'));
+  const hasContact = document.getElementById('name').value.trim() && phoneInput.value.trim();
+  const hasChoice = serviceSelect.value && masterSelect.value && dateInput.value && timeSelect.value;
+  if(hasChoice) spans[2].classList.add('active');
+  else if(serviceSelect.value || masterSelect.value || dateInput.value || hasContact) spans[1].classList.add('active');
+  else spans[0].classList.add('active');
+}
+function formatPhone(){
+  let digits=phoneInput.value.replace(/\D/g,'').slice(0,11);
+  if(!digits) return;
+  if(digits[0]==='8') digits='7'+digits.slice(1);
+  if(digits[0]!=='7') digits='7'+digits.slice(0,10);
+  const p=digits.slice(1);
+  let out='+7';
+  if(p.length) out+=' '+p.slice(0,3);
+  if(p.length>3) out+=' '+p.slice(3,6);
+  if(p.length>6) out+=' '+p.slice(6,8);
+  if(p.length>8) out+=' '+p.slice(8,10);
+  phoneInput.value=out;
+}
+phoneInput.addEventListener('blur',formatPhone);
+masterSelect.addEventListener('change', async()=>{await loadSlots();syncBookingStep();});
+dateInput.addEventListener('change', async()=>{await loadSlots();syncBookingStep();});
+serviceSelect.addEventListener('change', async()=>{await loadSlots();syncBookingStep();});
+timeSelect.addEventListener('change', syncBookingStep);
+document.getElementById('name').addEventListener('input', syncBookingStep);
+phoneInput.addEventListener('input', syncBookingStep);
+form.querySelectorAll('input,select,textarea').forEach(el=>el.addEventListener('input',()=>{el.closest('.field')?.classList.remove('invalid');el.closest('.field')?.querySelector('.field-error')?.remove();}));
 
 form.addEventListener('submit', async e => {
-  e.preventDefault();
+  e.preventDefault(); clearFieldErrors();
   if(!form.reportValidity()) return;
-  formStatus.className = 'form-status full'; formStatus.textContent = 'Бронируем время…';
+  setSubmitting(true);
+  formStatus.className = 'form-status full'; formStatus.textContent = 'Проверяем слот и создаём запись…';
   const data = Object.fromEntries(new FormData(form).entries());
   try{
     const res = await fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}); const result = await res.json();
-    if(!res.ok) throw new Error(result.error || 'Не удалось создать запись');
+    if(!res.ok){ const error=new Error(result.error || 'Не удалось создать запись'); error.field=result.field; throw error; }
     referenceCode.textContent = result.reference;
-    successSummary.textContent = `${result.booking.service} • ${result.booking.master} • ${result.booking.date} в ${result.booking.time}`;
+    successSummary.textContent = `${result.booking.service} • ${result.booking.master} • ${prettyDate(result.booking.date)} в ${result.booking.time}`;
+    successStatus.textContent = result.booking.status_label || 'Новая';
+    successPrice.textContent = money(result.booking.price);
     form.hidden = true; bookingSteps.hidden = true; successCard.hidden = false;
-  }catch(err){ formStatus.textContent = err.message; formStatus.className = 'form-status full error'; await loadSlots(); }
+    successCard.scrollIntoView({behavior:'smooth',block:'center'});
+  }catch(err){
+    formStatus.textContent = err.message; formStatus.className = 'form-status full error';
+    if(err.field) showFieldError(err.field,err.message);
+    await loadSlots();
+  }finally{ setSubmitting(false); }
 });
 
-document.getElementById('copyReference').addEventListener('click', async () => { await navigator.clipboard.writeText(referenceCode.textContent); document.getElementById('copyReference').textContent = 'Скопировано'; setTimeout(()=>document.getElementById('copyReference').textContent='Копировать',1300); });
-document.getElementById('newBooking').addEventListener('click', () => { form.reset(); form.hidden=false; bookingSteps.hidden=false; successCard.hidden=true; timeSelect.disabled=true; timeSelect.innerHTML='<option value="">Сначала мастер и дата</option>'; formStatus.textContent=''; });
+document.getElementById('copyReference').addEventListener('click', async () => { try{await navigator.clipboard.writeText(referenceCode.textContent);}catch(_){return;} document.getElementById('copyReference').textContent = 'Скопировано'; setTimeout(()=>document.getElementById('copyReference').textContent='Копировать',1300); });
+document.getElementById('newBooking').addEventListener('click', () => { form.reset(); clearFieldErrors(); form.hidden=false; bookingSteps.hidden=false; successCard.hidden=true; timeSelect.disabled=true; timeSelect.innerHTML='<option value="">Сначала услуга, специалист и дата</option>'; slotHint.textContent=''; formStatus.textContent=''; dateInput.min=localISODate(); syncBookingStep(); });
 </script>
 </body>
 </html>
