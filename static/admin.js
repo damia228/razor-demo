@@ -41,3 +41,6 @@ fetch('/admin/api/analytics').then(r=>r.json()).then(data=>{
   const smax = Math.max(1, ...data.services.map(x=>x.count));
   $('serviceChart').innerHTML = data.services.length ? data.services.map(x=>`<div class="service-line"><span>${x.name}</span><div class="service-track"><div class="service-fill" style="width:${x.count/smax*100}%"></div></div><b>${x.count}</b></div>`).join('') : '<span style="color:#777;font-size:12px">Пока нет данных</span>';
 }).catch(()=>{});
+
+$('seedDemo')?.addEventListener('click', async()=>{if(!confirm('Добавить 3 явно помеченных демонстрационных лида?'))return;const r=await fetch('/admin/api/demo-seed',{method:'POST'});if(r.ok)location.reload();});
+$('clearDemo')?.addEventListener('click', async()=>{if(!confirm('Удалить только демонстрационные лиды?'))return;const r=await fetch('/admin/api/demo-seed',{method:'DELETE'});if(r.ok)location.reload();});

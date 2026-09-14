@@ -109,6 +109,8 @@ def healthz():
 @app.post("/api/lead")
 def create_lead():
     data = request.get_json(silent=True) or request.form.to_dict()
+    if clean(data.get("website"), 120):
+        return jsonify({"ok": True, "message": "Заявка принята"}), 201
     name = clean(data.get("name"), 120)
     phone = clean(data.get("phone"), 60)
     service = clean(data.get("service"), 120)
@@ -119,6 +121,10 @@ def create_lead():
         return jsonify({"error": "Укажите корректный телефон"}), 400
     if not service:
         return jsonify({"error": "Выберите тип мебели"}), 400
+
+    recent = Lead.query.filter(Lead.phone == phone, Lead.service == service, Lead.created_at >= datetime.now(timezone.utc) - timedelta(minutes=2)).first()
+    if recent:
+        return jsonify({"ok": True, "lead_id": recent.id, "message": "Заявка уже принята"}), 200
 
     lead = Lead(
         name=name,
@@ -262,3 +268,22 @@ if __name__ == "__main__":
     with app.app_context():
         db.create_all()
     app.run(host="0.0.0.0", port=int(os.getenv("PORT", "5000")), debug=os.getenv("FLASK_DEBUG") == "1")
+
+@app.post('/admin/api/demo-seed')
+@admin_required
+def demo_seed():
+    if Lead.query.filter(Lead.source == 'demo').count():
+        return jsonify({'ok': True, 'message': 'Демо-лиды уже добавлены'})
+    samples = [
+        Lead(name='Алия', phone='+7 700 555 14 20', service='Кухня', width='4.1 м', budget='600 000–1 000 000 ₸', details='Светлая кухня до потолка, встроенная техника.', source='demo', status='estimate', notes='Демо-заявка для презентации', deal_value=850000),
+        Lead(name='Марат', phone='+7 701 222 63 11', service='Шкаф', width='2.8 м', budget='300 000–600 000 ₸', details='Встроенный шкаф в спальню.', source='demo', status='contacted', notes='Демо-заявка для презентации', deal_value=430000),
+        Lead(name='Диана', phone='+7 707 330 91 04', service='Гардеробная', width='6 м²', budget='от 1 000 000 ₸', details='Гардеробная с подсветкой и островом.', source='demo', status='won', notes='Демо-заявка для презентации', deal_value=1200000),
+    ]
+    db.session.add_all(samples); db.session.commit()
+    return jsonify({'ok': True, 'message': 'Добавлено 3 демонстрационных лида'})
+
+@app.delete('/admin/api/demo-seed')
+@admin_required
+def demo_clear():
+    Lead.query.filter(Lead.source == 'demo').delete(synchronize_session=False); db.session.commit()
+    return jsonify({'ok': True})
