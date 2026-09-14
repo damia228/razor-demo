@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RAZOR — мужская стрижка</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+  <header class="hero">
+    <nav>
+      <div class="logo">RAZOR</div>
+      <a href="#booking" class="nav-btn">Записаться</a>
+    </nav>
+
+    <div class="hero-content">
+      <span class="badge">BARBERSHOP • ALMATY</span>
+
+      <h1>Стрижка без лишнего шума.</h1>
+
+      <p>
+        Аккуратная форма, понятная цена и запись за минуту.
+      </p>
+
+      <a href="#services" class="primary">
+        Выбрать услугу
+      </a>
+    </div>
+  </header>
+
+
+  <main>
+
+    <!-- УСЛУГИ -->
+
+    <section id="services" class="services">
+
+      <div class="section-head">
+        <span>УСЛУГИ</span>
+        <h2>Просто выбирай.</h2>
+      </div>
+
+
+      <div class="cards">
+
+        <article class="card service-card">
+          <h3>Стрижка</h3>
+
+          <p>
+            Подбор формы, мытьё и укладка.
+          </p>
+
+          <strong>6 000 ₸</strong>
+
+          <button
+            type="button"
+            class="choose-service"
+            data-service="Стрижка — 6 000 ₸"
+          >
+            Выбрать
+          </button>
+        </article>
+
+
+        <article class="card service-card">
+          <h3>Стрижка + борода</h3>
+
+          <p>
+            Полный комплект и финальная укладка.
+          </p>
+
+          <strong>9 000 ₸</strong>
+
+          <button
+            type="button"
+            class="choose-service"
+            data-service="Стрижка + борода — 9 000 ₸"
+          >
+            Выбрать
+          </button>
+        </article>
+
+
+        <article class="card service-card">
+          <h3>Борода</h3>
+
+          <p>
+            Форма, контуры и уход.
+          </p>
+
+          <strong>4 000 ₸</strong>
+
+          <button
+            type="button"
+            class="choose-service"
+            data-service="Борода — 4 000 ₸"
+          >
+            Выбрать
+          </button>
+        </article>
+
+      </div>
+    </section>
+
+
+
+    <!-- МАСТЕРА -->
+
+    <section class="masters">
+
+      <div class="section-head">
+        <span>КОМАНДА</span>
+
+        <h2>
+          Выбери своего мастера.
+        </h2>
+      </div>
+
+
+      <div class="master-grid">
+
+        <article class="master-card">
+
+          <div class="master-photo">
+            <span>А</span>
+          </div>
+
+          <div class="master-info">
+
+            <span class="master-rating">
+              ★ 4.9
+            </span>
+
+            <h3>Арман</h3>
+
+            <p>
+              Классика • Fade • Styling
+            </p>
+
+            <button
+              type="button"
+              class="choose-master"
+              data-master="Арман"
+            >
+              Выбрать Армана
+            </button>
+
+          </div>
+        </article>
+
+
+        <article class="master-card">
+
+          <div class="master-photo">
+            <span>Т</span>
+          </div>
+
+          <div class="master-info">
+
+            <span class="master-rating">
+              ★ 5.0
+            </span>
+
+            <h3>Тимур</h3>
+
+            <p>
+              Fade • Crop • Modern
+            </p>
+
+            <button
+              type="button"
+              class="choose-master"
+              data-master="Тимур"
+            >
+              Выбрать Тимура
+            </button>
+
+          </div>
+        </article>
+
+
+        <article class="master-card">
+
+          <div class="master-photo">
+            <span>Д</span>
+          </div>
+
+          <div class="master-info">
+
+            <span class="master-rating">
+              ★ 4.8
+            </span>
+
+            <h3>Данияр</h3>
+
+            <p>
+              Борода • Классика • Fade
+            </p>
+
+            <button
+              type="button"
+              class="choose-master"
+              data-master="Данияр"
+            >
+              Выбрать Данияра
+            </button>
+
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+
+
+    <!-- ЗАПИСЬ -->
+
+    <section id="booking" class="booking">
+
+      <div>
+        <span class="eyebrow">
+          ОНЛАЙН-ЗАПИСЬ
+        </span>
+
+        <h2>
+          Забронируй время.
+        </h2>
+
+        <p class="muted">
+          Выбери услугу, мастера и удобное время.
+          Администратор получит заявку и подтвердит запись.
+        </p>
+      </div>
+
+
+      <form id="leadForm">
+
+        <label>
+          Имя
+
+          <input
+            name="name"
+            required
+            placeholder="Дамир"
+          >
+        </label>
+
+
+        <label>
+          Телефон
+
+          <input
+            name="phone"
+            required
+            placeholder="+7 777 000 00 00"
+          >
+        </label>
+
+
+        <label>
+          Услуга
+
+          <select
+            name="service"
+            required
+          >
+            <option value="">
+              Выберите услугу
+            </option>
+
+            <option>
+              Стрижка — 6 000 ₸
+            </option>
+
+            <option>
+              Стрижка + борода — 9 000 ₸
+            </option>
+
+            <option>
+              Борода — 4 000 ₸
+            </option>
+          </select>
+        </label>
+
+
+        <label>
+          Мастер
+
+          <select
+            name="master"
+            required
+          >
+            <option value="">
+              Выберите мастера
+            </option>
+
+            <option>Арман</option>
+            <option>Тимур</option>
+            <option>Данияр</option>
+          </select>
+        </label>
+
+
+        <label>
+          Дата
+
+          <input
+            type="date"
+            name="date"
+            required
+          >
+        </label>
+
+
+        <label>
+          Время
+
+          <select
+            name="bookingTime"
+            required
+          >
+            <option value="">
+              Выберите время
+            </option>
+
+            <option>10:00</option>
+            <option>11:00</option>
+            <option>12:00</option>
+            <option>13:00</option>
+            <option>14:00</option>
+            <option>15:00</option>
+            <option>16:00</option>
+            <option>17:00</option>
+            <option>18:00</option>
+            <option>19:00</option>
+            <option>20:00</option>
+          </select>
+        </label>
+
+
+        <button type="submit">
+          Отправить заявку
+        </button>
+
+        <p id="status" class="status"></p>
+
+      </form>
+    </section>
+
+  </main>
+
+
+  <footer>
+    <div class="logo">
+      RAZOR
+    </div>
+
+    <span>
+      Демо-проект • AI-assisted development
+    </span>
+  </footer>
+
+
+  <script>
+    const form = document.getElementById("leadForm");
+    const statusEl = document.getElementById("status");
+
+    const masterSelect =
+      document.querySelector('select[name="master"]');
+
+    const serviceSelect =
+      document.querySelector('select[name="service"]');
+
+    const masterButtons =
+      document.querySelectorAll(".choose-master");
+
+    const serviceButtons =
+      document.querySelectorAll(".choose-service");
+
+
+    function goToBooking() {
+      document
+        .getElementById("booking")
+        .scrollIntoView({
+          behavior: "smooth"
+        });
+    }
+
+
+    /* ВЫБОР МАСТЕРА */
+
+    masterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        masterSelect.value = button.dataset.master;
+        goToBooking();
+      });
+    });
+
+
+    /* ВЫБОР УСЛУГИ */
+
+    serviceButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        serviceSelect.value = button.dataset.service;
+        goToBooking();
+      });
+    });
+
+
+    /* НЕ ПОЗВОЛЯЕМ ВЫБРАТЬ ПРОШЕДШУЮ ДАТУ */
+
+    const dateInput =
+      document.querySelector('input[name="date"]');
+
+    const today =
+      new Date().toISOString().split("T")[0];
+
+    dateInput.min = today;
+
+
+    /* ОТПРАВКА ФОРМЫ */
+
+    form.addEventListener("submit", async (event) => {
+
+      event.preventDefault();
+
+      statusEl.textContent =
+        "Отправляем заявку...";
+
+      statusEl.className =
+        "status";
+
+
+      const formData =
+        Object.fromEntries(
+          new FormData(form).entries()
+        );
+
+
+      /*
+        Текущий Python backend ожидает:
+        name
+        phone
+        service
+        time
+
+        Поэтому дату, время и мастера
+        пока объединяем в одно поле time.
+      */
+
+      const data = {
+        name: formData.name,
+        phone: formData.phone,
+        service: formData.service,
+
+        time:
+          `${formData.date}, ${formData.bookingTime} • мастер: ${formData.master}`
+      };
+
+
+      try {
+
+        const response =
+          await fetch("/api/lead", {
+            method: "POST",
+
+            headers: {
+              "Content-Type":
+                "application/json"
+            },
+
+            body:
+              JSON.stringify(data)
+          });
+
+
+        const result =
+          await response.json();
+
+
+        if (!response.ok) {
+          throw new Error(
+            result.error ||
+            "Не удалось отправить заявку"
+          );
+        }
+
+
+        statusEl.textContent =
+          "Готово. Заявка отправлена.";
+
+        statusEl.className =
+          "status success";
+
+        form.reset();
+
+
+      } catch (error) {
+
+        statusEl.textContent =
+          error.message;
+
+        statusEl.className =
+          "status error";
+      }
+
+    });
+
+  </script>
+
+</body>
+</html>
