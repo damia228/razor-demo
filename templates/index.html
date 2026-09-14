@@ -212,18 +212,17 @@
       statusEl.className = 'status';
 
       const fd = Object.fromEntries(new FormData(form).entries());
-
-      // Совместимость со старым RAZOR API: новые данные лида временно
-      // упаковываются в service/time, поэтому backend можно обновить следующим шагом.
+      const params = new URLSearchParams(window.location.search);
+      const campaign = ['utm_source','utm_medium','utm_campaign']
+        .map((key) => params.get(key)).filter(Boolean).join(' / ');
       const payload = {
         name: fd.name,
         phone: fd.phone,
         service: fd.service,
-        time: [
-          `Размер: ${fd.width || 'не указан'}`,
-          `Бюджет: ${fd.budget || 'не указан'}`,
-          `Комментарий: ${fd.details || 'нет'}`
-        ].join(' • ')
+        width: fd.width,
+        budget: fd.budget,
+        details: fd.details,
+        source: campaign || document.referrer || 'site'
       };
 
       try {
